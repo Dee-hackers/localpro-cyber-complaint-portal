@@ -38,8 +38,8 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight md:leading-tight tracking-tight mb-6"
             >
-              Report Cyber Crimes <br className="hidden md:inline" />
-              <span className="text-primary">Safely and Securely</span>
+              HackAlert <br className="hidden md:inline" />
+              <span className="text-primary">A Real-Time Cyber Monitoring and Reporting Platform</span>
             </motion.h1>
             
             <motion.p 
@@ -134,11 +134,11 @@ const Index = () => {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center gap-2 mb-4 md:mb-0">
             <ShieldAlert className="h-5 w-5 text-primary" />
-            <span className="font-semibold text-lg">CyberShield</span>
+            <span className="font-semibold text-lg">HackAlert</span>
           </div>
           
           <div className="text-sm text-foreground/70">
-            &copy; {new Date().getFullYear()} CyberShield Portal. All rights reserved.
+            &copy; {new Date().getFullYear()} HackAlert Portal. All rights reserved.
           </div>
         </div>
       </footer>

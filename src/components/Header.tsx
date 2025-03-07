@@ -48,7 +48,7 @@ const Header = () => {
           className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-80"
         >
           <Shield className="h-8 w-8 text-primary" />
-          <span className="font-semibold text-xl">CyberShield</span>
+          <span className="font-semibold text-xl">HackAlert</span>
         </Link>
 
         {/* Desktop Navigation */}
