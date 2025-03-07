@@ -4,15 +4,25 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ChevronLeft, CheckCircle2 } from 'lucide-react';
+import ProgressTracker from '@/components/ProgressTracker';
 
 const SuccessPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const referenceNumber = location.state?.referenceNumber || "CYB-UNKNOWN";
+  
+  // Get the current date formatted for display
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4 md:px-8">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto space-y-6">
         <Card className="w-full animate-fade-in">
           <CardContent className="pt-6 pb-8">
             <div className="text-center space-y-6 py-6">
@@ -47,6 +57,13 @@ const SuccessPage = () => {
             </div>
           </CardContent>
         </Card>
+        
+        {/* Add the Progress Tracker */}
+        <ProgressTracker 
+          referenceNumber={referenceNumber}
+          status="submitted" 
+          lastUpdated={currentDate}
+        />
       </div>
     </div>
   );

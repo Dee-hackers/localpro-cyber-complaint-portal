@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Card, 
@@ -36,7 +35,6 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [referenceNumber, setReferenceNumber] = useState<string | null>(null);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -51,7 +49,7 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
   const handleCheckboxChange = (checked: boolean) => {
     setFormData({ ...formData, agreeToTerms: checked });
     if (errors.agreeToTerms) {
-      setErrors({ ...errors, agreeToTerms: '' });
+      setErrors({ ...errors, [name]: '' });
     }
   };
   
@@ -115,15 +113,12 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
       
       // Generate a reference number for the complaint
       const refNumber = `CYB-${Date.now().toString().slice(-8)}-${Math.floor(Math.random() * 1000)}`;
-      setReferenceNumber(refNumber);
       
       // Show success message
       toast.success(`Complaint submitted successfully. Your reference number is: ${refNumber}`);
       
-      // After 3 seconds, redirect to home
-      setTimeout(() => {
-        navigate('/');
-      }, 5000);
+      // Navigate to the success page with the reference number
+      navigate('/success', { state: { referenceNumber: refNumber } });
       
     } catch (error) {
       toast.error('An error occurred while submitting your complaint. Please try again.');
@@ -131,37 +126,6 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
       setIsSubmitting(false);
     }
   };
-  
-  // If we have a reference number, show the success state
-  if (referenceNumber) {
-    return (
-      <Card className="w-full max-w-3xl mx-auto animate-fade-in">
-        <CardContent className="pt-6 pb-8">
-          <div className="text-center space-y-4">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <h2 className="text-2xl font-semibold">Complaint Registered Successfully</h2>
-            <p className="text-muted-foreground">
-              Thank you for submitting your complaint. Our team will review it and take appropriate action.
-            </p>
-            <div className="bg-muted/50 p-4 rounded-md my-6">
-              <p className="font-medium">Your reference number:</p>
-              <p className="text-2xl font-bold tracking-wide my-1">{referenceNumber}</p>
-              <p className="text-sm text-muted-foreground">
-                Please save this reference number for future communication.
-              </p>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              You will be redirected to the home page shortly...
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
   
   return (
     <Card className="w-full max-w-3xl mx-auto animate-fade-in">
