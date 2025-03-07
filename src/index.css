@@ -106,16 +106,18 @@
   }
 }
 
-.glassmorphism {
-  @apply bg-white/80 dark:bg-black/30 backdrop-blur-lg border border-white/20 dark:border-white/10;
-}
+@layer components {
+  .glassmorphism {
+    @apply bg-white/80 dark:bg-black/30 backdrop-blur-lg border border-white/20 dark:border-white/10;
+  }
 
-.card-hover {
-  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
-}
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
 
-.prose-custom {
-  @apply prose prose-slate dark:prose-invert prose-headings:font-medium prose-a:text-primary;
+  .prose-custom {
+    @apply prose prose-slate dark:prose-invert prose-headings:font-medium prose-a:text-primary;
+  }
 }
 
 /* Smooth scrolling */
