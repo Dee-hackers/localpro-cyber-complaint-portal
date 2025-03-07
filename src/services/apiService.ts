@@ -15,29 +15,53 @@ export interface ComplaintFormData {
   type: 'women-children' | 'online-fraud' | 'cyber-crime';
 }
 
+export interface ComplaintResponse {
+  referenceNumber: string;
+  status: string;
+  submissionDate: string;
+}
+
+// Base API URL - would be loaded from env variable in production
+const API_BASE_URL = 'http://localhost:5000/api';
+
 export async function submitComplaint(formData: ComplaintFormData): Promise<boolean> {
-  // In a real application, this would be an actual API endpoint
-  // For demo purposes, we're simulating an API call
   try {
     console.log("Submitting complaint data:", formData);
     
-    // Simulate API request delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    const response = await fetch(`${API_BASE_URL}/complaints`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
     
-    // Simulate success (90% of the time) or failure
-    const isSuccessful = Math.random() < 0.9;
-    
-    if (!isSuccessful) {
-      throw new Error("Server error occurred");
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Server error occurred");
     }
     
-    // Generate a reference number for the complaint
-    const referenceNumber = `CYB-${Date.now().toString().slice(-8)}-${Math.floor(Math.random() * 1000)}`;
+    const data = await response.json();
+    console.log("Complaint submitted successfully. Reference number:", data.referenceNumber);
     
-    console.log("Complaint submitted successfully. Reference number:", referenceNumber);
     return true;
   } catch (error) {
     console.error("Error submitting complaint:", error);
+    throw error;
+  }
+}
+
+export async function getComplaintStatus(referenceNumber: string): Promise<ComplaintResponse> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/complaints/${referenceNumber}`);
+    
+    if (!response.ok) {
+      throw new Error("Failed to fetch complaint status");
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching complaint status:", error);
     throw error;
   }
 }
