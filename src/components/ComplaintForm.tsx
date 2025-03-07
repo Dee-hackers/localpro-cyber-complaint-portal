@@ -49,7 +49,8 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
   const handleCheckboxChange = (checked: boolean) => {
     setFormData({ ...formData, agreeToTerms: checked });
     if (errors.agreeToTerms) {
-      setErrors({ ...errors, [name]: '' });
+      // Fix: Using a string literal instead of a variable 'name' that doesn't exist in this scope
+      setErrors({ ...errors, agreeToTerms: '' });
     }
   };
   
@@ -61,6 +62,8 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     const file = e.target.files?.[0] || null;
     setFormData({ ...formData, evidence: file });
   };
+  
+  
   
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -126,6 +129,7 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
       setIsSubmitting(false);
     }
   };
+  
   
   return (
     <Card className="w-full max-w-3xl mx-auto animate-fade-in">
