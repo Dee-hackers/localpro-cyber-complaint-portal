@@ -29,7 +29,7 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     address: '',
     incidentDate: '',
     description: '',
-    preferredContact: 'email',
+    preferredContact: 'email' as 'email' | 'phone' | 'both',
     evidence: null as File | null,
     agreeToTerms: false,
   });
@@ -55,7 +55,7 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     }
   };
   
-  const handleRadioChange = (value: string) => {
+  const handleRadioChange = (value: 'email' | 'phone' | 'both') => {
     setFormData({ ...formData, preferredContact: value });
   };
   
