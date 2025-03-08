@@ -21,7 +21,6 @@ const CertificatePage = () => {
     score = 0 
   } = location.state || {};
   
-  // Calculate completion time based on number of modules (1 week per 2 modules)
   const completionTimeInWeeks = Math.ceil(modules.length / 2);
   const completionTimeText = completionTimeInWeeks === 1 
     ? '1 Week' 
