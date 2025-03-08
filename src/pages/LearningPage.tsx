@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -7,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { ChevronRight, BookOpen, Award, CheckCircle, Shield, AlertTriangle, Zap, Database, Lock, Globe, FileCode, Browser, Laptop, ServerOff } from 'lucide-react';
+import { ChevronRight, BookOpen, Award, CheckCircle, Shield, AlertTriangle, Zap, Database, Lock, Globe, FileCode, Laptop, ServerOff, MonitorSmartphone } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface Question {
@@ -172,7 +171,7 @@ const LearningPage = () => {
       description: "Learn how to browse the internet safely and recognize threats",
       difficulty: "beginner",
       completed: false,
-      icon: Browser,
+      icon: MonitorSmartphone,
       estimatedTime: "3 hours",
       questions: [
         {
