@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Shield, Menu, X, Info, Lock, Bell, HelpCircle } from 'lucide-react';
+import { Shield, Menu, X, Info, Lock, Bell, HelpCircle, BookOpen } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,6 +36,7 @@ const Header = () => {
 
   const navItems = [
     { name: 'Home', path: '/' },
+    { name: 'Learning', path: '/learning' },
     { name: 'About', path: '/about' },
     { name: 'Resources', path: '/resources' },
     { name: 'Contact', path: '/contact' },
