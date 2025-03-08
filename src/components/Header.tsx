@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Shield, Menu, X, Info, Lock, Bell, HelpCircle, BookOpen } from 'lucide-react';
+import { Shield, Menu, X, Info, Lock, Bell, HelpCircle, BookOpen, User, Search, GraduationCap } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,9 +37,9 @@ const Header = () => {
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Learning', path: '/learning' },
+    { name: 'Track Complaint', path: '/track-complaint' },
     { name: 'About', path: '/about' },
     { name: 'Resources', path: '/resources' },
-    { name: 'Contact', path: '/contact' },
   ];
 
   return (
@@ -56,18 +56,24 @@ const Header = () => {
           to="/" 
           className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-80"
         >
-          <Shield className="h-8 w-8 text-primary" />
-          <span className="font-semibold text-xl">HackAlert</span>
+          <div className="relative">
+            <Shield className="h-8 w-8 text-primary" />
+            <Lock className="h-4 w-4 text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+          </div>
+          <span className="font-semibold text-xl">
+            <span className="text-2xl font-bold mr-1">H</span>
+            ackAlert
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-6">
           {navItems.map((item) => (
             <Link 
               key={item.path} 
               to={item.path} 
               className={cn(
-                'font-medium transition-colors duration-200',
+                'font-medium transition-colors duration-200 hover:scale-105 transform',
                 location.pathname === item.path
                   ? 'text-primary'
                   : 'text-foreground/80 hover:text-primary'
@@ -77,14 +83,43 @@ const Header = () => {
             </Link>
           ))}
           
+          {/* Profile Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="inline-flex items-center gap-1 font-medium text-foreground/80 hover:text-primary transition-colors duration-200">
+              <User className="h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="cursor-pointer">
+                <User className="h-4 w-4 mr-2" />
+                <span>Profile Settings</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                <Bell className="h-4 w-4 mr-2" />
+                <span>Notifications</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                <BookOpen className="h-4 w-4 mr-2" />
+                <span>My Learning Progress</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="cursor-pointer">
+                <Lock className="h-4 w-4 mr-2" />
+                <span>Logout</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          
           {/* Portal Info Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger className="inline-flex items-center gap-1 font-medium text-foreground/80 hover:text-primary transition-colors duration-200">
               <Info className="h-4 w-4" />
-              <span>Portal Info</span>
+              <span>About Us</span>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-64">
-              <DropdownMenuLabel className="text-primary">HackAlert Cyber Portal</DropdownMenuLabel>
+              <DropdownMenuLabel className="text-primary">Why Choose HackAlert?</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="flex items-start gap-2 cursor-default">
                 <Lock className="h-4 w-4 mt-0.5 text-primary" />
@@ -101,6 +136,13 @@ const Header = () => {
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem className="flex items-start gap-2 cursor-default">
+                <GraduationCap className="h-4 w-4 mt-0.5 text-primary" />
+                <div>
+                  <p className="font-medium">Comprehensive Learning</p>
+                  <p className="text-xs text-muted-foreground">From basics to advanced cybersecurity</p>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex items-start gap-2 cursor-default">
                 <HelpCircle className="h-4 w-4 mt-0.5 text-primary" />
                 <div>
                   <p className="font-medium">Expert Support</p>
@@ -109,10 +151,19 @@ const Header = () => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="text-xs text-center text-muted-foreground cursor-default">
-                Version 1.0.2 | Last Updated: {new Date().toLocaleDateString()}
+                Protecting digital lives since {new Date().getFullYear()}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Join Button */}
+          <Link 
+            to="/learning" 
+            className="bg-primary text-white px-4 py-2 rounded-md font-medium transition-all duration-300 hover:bg-primary/90 hover:shadow-md hover:scale-105 transform"
+          >
+            <GraduationCap className="h-4 w-4 inline mr-1" />
+            Join Learning
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -136,7 +187,7 @@ const Header = () => {
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
-        <nav className="flex flex-col items-center justify-center h-full space-y-8 p-4">
+        <nav className="flex flex-col items-center justify-center h-full space-y-6 p-4">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -152,11 +203,27 @@ const Header = () => {
             </Link>
           ))}
           
+          {/* Mobile Profile Link */}
+          <Link
+            to="/profile"
+            className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors duration-200"
+          >
+            Profile
+          </Link>
+          
+          {/* Mobile Join Button */}
+          <Link 
+            to="/learning" 
+            className="bg-primary text-white px-6 py-2 rounded-md font-medium"
+          >
+            Join Learning
+          </Link>
+          
           {/* Mobile Portal Info */}
           <div className="w-full max-w-xs bg-muted/50 rounded-lg p-4 space-y-3">
             <div className="flex items-center gap-2 text-primary font-medium">
               <Info className="h-4 w-4" />
-              <span>Portal Information</span>
+              <span>About HackAlert</span>
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex items-start gap-2">
@@ -174,10 +241,10 @@ const Header = () => {
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <HelpCircle className="h-4 w-4 mt-0.5 text-primary" />
+                <GraduationCap className="h-4 w-4 mt-0.5 text-primary" />
                 <div>
-                  <p className="font-medium">Expert Support</p>
-                  <p className="text-xs text-muted-foreground">Professional assistance</p>
+                  <p className="font-medium">Learning Platform</p>
+                  <p className="text-xs text-muted-foreground">Comprehensive courses</p>
                 </div>
               </div>
             </div>
