@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, Download, Trophy, Award, Calendar, Clock, CheckCircle2, Share2, LockKeyhole } from 'lucide-react';
+import { ChevronLeft, Download, Trophy, Award, Calendar, Clock, CheckCircle2, Share2 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import html2canvas from 'html2canvas';
 import { motion } from 'framer-motion';
@@ -117,7 +117,7 @@ const CertificatePage = () => {
                   <div className="relative">
                     <Award className="h-20 w-20 text-primary" />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <LockKeyhole className="h-8 w-8 text-white" />
+                      <Lock className="h-8 w-8 text-white" />
                     </div>
                   </div>
                 </div>
