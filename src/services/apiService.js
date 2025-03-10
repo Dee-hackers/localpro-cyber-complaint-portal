@@ -1,35 +1,48 @@
 
-import { toast } from 'sonner';
+// API service for handling complaint submissions
+import { toast } from "sonner";
 
-export const submitComplaint = async (complaintData) => {
-  // This is a mock API call
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log('Complaint submitted:', complaintData);
-      resolve({ success: true, id: Date.now() });
-    }, 1500);
-  });
-};
+export async function submitComplaint(formData) {
+  try {
+    console.log("Submitting complaint data:", formData);
+    
+    const response = await fetch(`${API_BASE_URL}/complaints`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Server error occurred");
+    }
+    
+    const data = await response.json();
+    console.log("Complaint submitted successfully. Reference number:", data.referenceNumber);
+    
+    return true;
+  } catch (error) {
+    console.error("Error submitting complaint:", error);
+    throw error;
+  }
+}
 
-export const trackComplaint = async (referenceNumber) => {
-  // This is a mock API call
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Simulate a 90% success rate
-      if (Math.random() < 0.9) {
-        const statuses = ['submitted', 'reviewing', 'investigating', 'resolved'];
-        const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-        
-        resolve({
-          referenceNumber,
-          status: randomStatus,
-          lastUpdated: new Date().toLocaleDateString(),
-          details: `Your complaint is currently ${randomStatus}.`
-        });
-      } else {
-        reject(new Error('Reference number not found'));
-        toast.error('Reference number not found');
-      }
-    }, 1500);
-  });
-};
+export async function getComplaintStatus(referenceNumber) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/complaints/${referenceNumber}`);
+    
+    if (!response.ok) {
+      throw new Error("Failed to fetch complaint status");
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching complaint status:", error);
+    throw error;
+  }
+}
+
+// Base API URL - would be loaded from env variable in production
+const API_BASE_URL = 'http://localhost:5000/api';
