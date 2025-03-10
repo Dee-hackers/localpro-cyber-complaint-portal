@@ -40,7 +40,6 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     
-    // Clear error when field is edited
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
     }
@@ -49,7 +48,6 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
   const handleCheckboxChange = (checked: boolean) => {
     setFormData({ ...formData, agreeToTerms: checked });
     if (errors.agreeToTerms) {
-      // Fix: Using a string literal instead of a variable 'name' that doesn't exist in this scope
       setErrors({ ...errors, agreeToTerms: '' });
     }
   };
@@ -62,8 +60,6 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     const file = e.target.files?.[0] || null;
     setFormData({ ...formData, evidence: file });
   };
-  
-  
   
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -104,23 +100,18 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     
     setIsSubmitting(true);
     
-    // Prepare the submission data
     const complaintData: ComplaintFormData = {
       ...formData,
       type,
     };
     
     try {
-      // Submit to the backend
       await submitComplaint(complaintData);
       
-      // Generate a reference number for the complaint
       const refNumber = `CYB-${Date.now().toString().slice(-8)}-${Math.floor(Math.random() * 1000)}`;
       
-      // Show success message
       toast.success(`Complaint submitted successfully. Your reference number is: ${refNumber}`);
       
-      // Navigate to the success page with the reference number
       navigate('/success', { state: { referenceNumber: refNumber } });
       
     } catch (error) {
@@ -130,56 +121,55 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     }
   };
   
-  
   return (
-    <Card className="w-full max-w-3xl mx-auto animate-fade-in">
+    <Card className="w-full max-w-3xl mx-auto bg-white shadow-sm">
       <CardContent className="pt-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Personal Information</h3>
+            <h3 className="text-lg font-medium text-gray-900">Personal Information</h3>
             
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name <span className="text-destructive">*</span></Label>
+                <Label htmlFor="fullName">Full Name <span className="text-red-500">*</span></Label>
                 <Input
                   id="fullName"
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleInputChange}
-                  className={errors.fullName ? 'border-destructive' : ''}
+                  className={errors.fullName ? 'border-red-500' : ''}
                 />
                 {errors.fullName && (
-                  <p className="text-sm text-destructive">{errors.fullName}</p>
+                  <p className="text-sm text-red-500">{errors.fullName}</p>
                 )}
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="email">Email <span className="text-destructive">*</span></Label>
+                <Label htmlFor="email">Email <span className="text-red-500">*</span></Label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={errors.email ? 'border-destructive' : ''}
+                  className={errors.email ? 'border-red-500' : ''}
                 />
                 {errors.email && (
-                  <p className="text-sm text-destructive">{errors.email}</p>
+                  <p className="text-sm text-red-500">{errors.email}</p>
                 )}
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number <span className="text-destructive">*</span></Label>
+                <Label htmlFor="phone">Phone Number <span className="text-red-500">*</span></Label>
                 <Input
                   id="phone"
                   name="phone"
                   type="tel"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className={errors.phone ? 'border-destructive' : ''}
+                  className={errors.phone ? 'border-red-500' : ''}
                 />
                 {errors.phone && (
-                  <p className="text-sm text-destructive">{errors.phone}</p>
+                  <p className="text-sm text-red-500">{errors.phone}</p>
                 )}
               </div>
               
@@ -211,18 +201,18 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="description">Description <span className="text-destructive">*</span></Label>
+              <Label htmlFor="description">Description <span className="text-red-500">*</span></Label>
               <Textarea
                 id="description"
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
                 rows={5}
-                className={errors.description ? 'border-destructive' : ''}
+                className={errors.description ? 'border-red-500' : ''}
                 placeholder="Please provide as much detail as possible about the incident..."
               />
               {errors.description && (
-                <p className="text-sm text-destructive">{errors.description}</p>
+                <p className="text-sm text-red-500">{errors.description}</p>
               )}
             </div>
             
@@ -278,17 +268,17 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
               id="agreeToTerms" 
               checked={formData.agreeToTerms}
               onCheckedChange={handleCheckboxChange}
-              className={errors.agreeToTerms ? 'border-destructive' : ''}
+              className={errors.agreeToTerms ? 'border-red-500' : ''}
             />
             <div className="space-y-1">
               <Label 
                 htmlFor="agreeToTerms" 
                 className="cursor-pointer text-sm font-normal leading-none"
               >
-                I agree to the terms and conditions <span className="text-destructive">*</span>
+                I agree to the terms and conditions <span className="text-red-500">*</span>
               </Label>
               {errors.agreeToTerms && (
-                <p className="text-xs text-destructive">{errors.agreeToTerms}</p>
+                <p className="text-xs text-red-500">{errors.agreeToTerms}</p>
               )}
               <p className="text-xs text-muted-foreground leading-snug">
                 By submitting this form, you acknowledge that your information will be processed 
@@ -298,7 +288,11 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
           </div>
           
           <div className="pt-2">
-            <Button type="submit" className="w-full sm:w-auto" disabled={isSubmitting}>
+            <Button 
+              type="submit" 
+              className="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-white" 
+              disabled={isSubmitting}
+            >
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

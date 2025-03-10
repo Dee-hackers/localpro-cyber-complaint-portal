@@ -24,6 +24,7 @@ const App = () => (
           <Route path="/complaint/:type" element={<ComplaintPage />} />
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/learning" element={<LearningPage />} />
+          <Route path="/track-complaint" element={<TrackComplaintPage />} />
           <Route path="/certificate" element={<CertificatePage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
