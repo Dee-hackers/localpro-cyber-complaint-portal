@@ -11,6 +11,7 @@ import SuccessPage from "./pages/SuccessPage.jsx";
 import LearningPage from "./pages/LearningPage.jsx";
 import CertificatePage from "./pages/CertificatePage.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import TrackComplaintPage from "./pages/TrackComplaintPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/learning" element={<LearningPage />} />
           <Route path="/certificate" element={<CertificatePage />} />
+          <Route path="/track" element={<TrackComplaintPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

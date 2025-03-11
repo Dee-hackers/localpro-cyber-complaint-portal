@@ -1,68 +1,62 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '@/components/Header';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import Header from '../components/Header';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
+import { Input } from '../components/ui/input';
+import { Button } from '../components/ui/button';
+import { Label } from '../components/ui/label';
 import { Search, FileWarning, AlertCircle } from 'lucide-react';
-import ProgressTracker from '@/components/ProgressTracker';
+import ProgressTracker from '../components/ProgressTracker';
 import { motion } from 'framer-motion';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '../hooks/use-toast';
 
 const TrackComplaintPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [referenceNumber, setReferenceNumber] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  const [complaint, setComplaint] = useState<{
-    type: string;
-    status: 'submitted' | 'reviewing' | 'investigating' | 'resolved';
-    dateSubmitted: string;
-    lastUpdated: string;
-    description: string;
-  } | null>(null);
+  const [complaint, setComplaint] = useState(null);
   
   // Sample complaints data (in a real app, this would come from an API)
   const mockComplaints = {
     'HA-123456': {
       type: 'Online Fraud',
-      status: 'reviewing' as const,
+      status: 'reviewing',
       dateSubmitted: '2023-10-15',
       lastUpdated: '2023-10-17',
       description: 'Reported a phishing email claiming to be from a bank.'
     },
     'HA-789012': {
       type: 'Cyber Crime',
-      status: 'investigating' as const,
+      status: 'investigating',
       dateSubmitted: '2023-10-10',
       lastUpdated: '2023-10-16',
       description: 'Unauthorized access to personal accounts and data breach.'
     },
     'HA-345678': {
       type: 'Women & Children Safety',
-      status: 'resolved' as const,
+      status: 'resolved',
       dateSubmitted: '2023-10-05',
       lastUpdated: '2023-10-14',
       description: 'Online harassment issue on a social media platform.'
     },
     'HA-901234': {
       type: 'Online Fraud',
-      status: 'submitted' as const,
+      status: 'submitted',
       dateSubmitted: '2023-10-18',
       lastUpdated: '2023-10-18',
       description: 'Fraudulent transaction on e-commerce website.'
     }
   };
   
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     setIsSearching(true);
     
     // Simulate API call delay
     setTimeout(() => {
-      const foundComplaint = mockComplaints[referenceNumber as keyof typeof mockComplaints];
+      const foundComplaint = mockComplaints[referenceNumber];
       
       if (foundComplaint) {
         setComplaint(foundComplaint);
