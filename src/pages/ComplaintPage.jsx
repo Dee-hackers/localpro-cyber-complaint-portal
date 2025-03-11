@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/button.jsx';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, UserRound, CreditCard, Lock } from 'lucide-react';
 import ComplaintForm from '../components/ComplaintForm';
 
 const ComplaintPage = () => {
@@ -10,33 +10,29 @@ const ComplaintPage = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [icon, setIcon] = useState(null);
   
   useEffect(() => {
     // Set the page title and description based on the complaint type
     switch(type) {
-      case 'phishing':
-        setTitle('Report Phishing Attempt');
-        setDescription('Report emails, websites, or messages attempting to steal your personal information.');
+      case 'women-children':
+        setTitle('Women & Children Safety');
+        setDescription('Report harassment, stalking, bullying, or other violations specifically targeting women and children in digital spaces.');
+        setIcon(<UserRound className="h-6 w-6" />);
         break;
-      case 'malware':
-        setTitle('Report Malware');
-        setDescription('Report suspected malware, viruses, or ransomware incidents affecting your systems.');
+      case 'online-fraud':
+        setTitle('Online Fraud');
+        setDescription('Report financial scams, phishing attempts, identity theft, fraudulent transactions, or other deceptive online practices.');
+        setIcon(<CreditCard className="h-6 w-6" />);
         break;
-      case 'data-breach':
-        setTitle('Report Data Breach');
-        setDescription('Report unauthorized access or exposure of sensitive personal or organizational data.');
-        break;
-      case 'fraud':
-        setTitle('Report Online Fraud');
-        setDescription('Report financial scams, fake online stores, or fraudulent transactions.');
-        break;
-      case 'harassment':
-        setTitle('Report Online Harassment');
-        setDescription('Report cyberbullying, stalking, or threatening behavior online.');
+      case 'cyber-crime':
+        setTitle('Other Cyber Crime');
+        setDescription('Report hacking, unauthorized access, data breaches, malware attacks, ransomware, or other cyber security violations.');
+        setIcon(<Lock className="h-6 w-6" />);
         break;
       default:
-        // Redirect to 404 if invalid complaint type
-        navigate('/not-found');
+        // Redirect to home if invalid complaint type
+        navigate('/');
     }
   }, [type, navigate]);
 
@@ -51,7 +47,27 @@ const ComplaintPage = () => {
             </Button>
           </Link>
           
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">{title}</h1>
+          <div className="flex items-center gap-3 mb-3">
+            {icon && (
+              <div 
+                className="inline-flex items-center justify-center w-10 h-10 rounded-lg"
+                style={{
+                  backgroundColor: 
+                    type === 'women-children' ? 'hsl(var(--accent) / 0.1)' :
+                    type === 'online-fraud' ? 'hsl(var(--primary) / 0.1)' :
+                    'hsl(var(--secondary) / 0.1)',
+                  color:
+                    type === 'women-children' ? 'hsl(var(--accent))' :
+                    type === 'online-fraud' ? 'hsl(var(--primary))' :
+                    'hsl(var(--secondary))'
+                }}
+              >
+                {icon}
+              </div>
+            )}
+            <h1 className="text-3xl md:text-4xl font-bold">{title}</h1>
+          </div>
+          
           <p className="text-muted-foreground mb-6">{description}</p>
         </div>
         
