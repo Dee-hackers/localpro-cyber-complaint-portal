@@ -1,20 +1,20 @@
 
-import { useContext, createContext, useState, useEffect } from "react";
+import React from 'react';
 
-const TOAST_LIMIT = 20;
-const TOAST_REMOVE_DELAY = 1000 * 60 * 60;
+const TOAST_LIMIT = 5;
+const TOAST_REMOVE_DELAY = 1000000;
 
 const actionTypes = {
   ADD_TOAST: "ADD_TOAST",
   UPDATE_TOAST: "UPDATE_TOAST",
   DISMISS_TOAST: "DISMISS_TOAST",
-  REMOVE_TOAST: "REMOVE_TOAST",
+  REMOVE_TOAST: "REMOVE_TOAST"
 };
 
 let count = 0;
 
 function genId() {
-  count = (count + 1) % Number.MAX_VALUE;
+  count = (count + 1) % Number.MAX_SAFE_INTEGER;
   return count.toString();
 }
 
@@ -29,7 +29,7 @@ const addToRemoveQueue = (toastId) => {
     toastTimeouts.delete(toastId);
     dispatch({
       type: actionTypes.REMOVE_TOAST,
-      toastId: toastId,
+      toastId,
     });
   }, TOAST_REMOVE_DELAY);
 
@@ -55,8 +55,6 @@ const reducer = (state, action) => {
     case actionTypes.DISMISS_TOAST: {
       const { toastId } = action;
 
-      // ! Side effects ! - This could be extracted into a dismissToast() action,
-      // but I'll keep it here for simplicity
       if (toastId) {
         addToRemoveQueue(toastId);
       } else {
@@ -77,6 +75,7 @@ const reducer = (state, action) => {
         ),
       };
     }
+    
     case actionTypes.REMOVE_TOAST:
       if (action.toastId === undefined) {
         return {
@@ -102,9 +101,7 @@ function dispatch(action) {
   });
 }
 
-function toast({
-  ...props
-}) {
+function toast({ ...props }) {
   const id = genId();
 
   const update = (props) =>
@@ -129,16 +126,16 @@ function toast({
   });
 
   return {
-    id: id,
+    id,
     dismiss,
     update,
   };
 }
 
 function useToast() {
-  const [state, setState] = useState(memoryState);
+  const [state, setState] = React.useState(memoryState);
 
-  useEffect(() => {
+  React.useEffect(() => {
     listeners.push(setState);
     return () => {
       const index = listeners.indexOf(setState);
