@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   Card, 
@@ -12,13 +13,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { FileUp, Loader2 } from 'lucide-react';
-import { submitComplaint, type ComplaintFormData } from '@/services/apiService';
+import { submitComplaint } from '@/services/apiService';
 
-interface ComplaintFormProps {
-  type: 'women-children' | 'online-fraud' | 'cyber-crime';
-}
-
-const ComplaintForm = ({ type }: ComplaintFormProps) => {
+const ComplaintForm = ({ type }) => {
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
@@ -28,15 +25,15 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     address: '',
     incidentDate: '',
     description: '',
-    preferredContact: 'email' as 'email' | 'phone' | 'both',
-    evidence: null as File | null,
+    preferredContact: 'email',
+    evidence: null,
     agreeToTerms: false,
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState({});
   
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     
@@ -45,24 +42,24 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     }
   };
   
-  const handleCheckboxChange = (checked: boolean) => {
+  const handleCheckboxChange = (checked) => {
     setFormData({ ...formData, agreeToTerms: checked });
     if (errors.agreeToTerms) {
       setErrors({ ...errors, agreeToTerms: '' });
     }
   };
   
-  const handleRadioChange = (value: 'email' | 'phone' | 'both') => {
+  const handleRadioChange = (value) => {
     setFormData({ ...formData, preferredContact: value });
   };
   
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e) => {
     const file = e.target.files?.[0] || null;
     setFormData({ ...formData, evidence: file });
   };
   
   const validateForm = () => {
-    const newErrors: Record<string, string> = {};
+    const newErrors = {};
     
     if (!formData.fullName.trim()) {
       newErrors.fullName = 'Full name is required';
@@ -90,7 +87,7 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     return Object.keys(newErrors).length === 0;
   };
   
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -100,7 +97,7 @@ const ComplaintForm = ({ type }: ComplaintFormProps) => {
     
     setIsSubmitting(true);
     
-    const complaintData: ComplaintFormData = {
+    const complaintData = {
       ...formData,
       type,
     };
