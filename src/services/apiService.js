@@ -2,6 +2,9 @@
 // API service for handling complaint submissions
 import { toast } from "sonner";
 
+// Base API URL - would be loaded from env variable in production
+const API_BASE_URL = 'http://localhost:5000/api';
+
 export async function submitComplaint(formData) {
   try {
     console.log("Submitting complaint data:", formData);
@@ -43,6 +46,3 @@ export async function getComplaintStatus(referenceNumber) {
     throw error;
   }
 }
-
-// Base API URL - would be loaded from env variable in production
-const API_BASE_URL = 'http://localhost:5000/api';

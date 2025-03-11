@@ -1,20 +1,19 @@
-import { ReactElement } from 'react';
 
-export interface Question {
-  id: number;
-  text: string;
-  options: string[];
-  correctAnswer: number;
-  explanation: string;
-}
+export const QuestionType = {
+  id: 'number',
+  text: 'string',
+  options: 'array',
+  correctAnswer: 'number',
+  explanation: 'string'
+};
 
-export interface Module {
-  id: number;
-  title: string;
-  description: string;
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-  completed: boolean;
-  icon: React.ElementType;
-  estimatedTime: string;
-  questions: Question[];
-}
+export const ModuleType = {
+  id: 'number',
+  title: 'string',
+  description: 'string',
+  difficulty: 'string', // 'beginner' | 'intermediate' | 'advanced'
+  completed: 'boolean',
+  icon: 'function',
+  estimatedTime: 'string',
+  questions: 'array'
+};
