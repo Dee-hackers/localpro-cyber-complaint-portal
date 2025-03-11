@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { Button } from '../components/ui/button.jsx';
 import { ChevronLeft } from 'lucide-react';
-import ModulesList from '@/components/learning/ModulesList';
+import ModulesList from '../components/learning/ModulesList';
 
 const LearningPage = () => {
   const [currentModule, setCurrentModule] = useState(null);

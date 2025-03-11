@@ -1,10 +1,10 @@
 
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '../components/ui/button.jsx';
+import { Card, CardContent } from '../components/ui/card.jsx';
 import { ChevronLeft, CheckCircle2 } from 'lucide-react';
-import ProgressTracker from '@/components/ProgressTracker';
+import ProgressTracker from '../components/ProgressTracker';
 
 const SuccessPage = () => {
   const navigate = useNavigate();
