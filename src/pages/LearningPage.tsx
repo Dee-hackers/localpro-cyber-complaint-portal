@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { ChevronRight, BookOpen, Award, CheckCircle, Shield, AlertTriangle, Zap, Database, Lock, Globe, FileCode, Laptop, ServerOff, MonitorSmartphone } from 'lucide-react';
+import { ChevronRight, BookOpen, Award, CheckCircle, Shield, AlertTriangle, Zap, Database, Lock, Globe, FileCode, MonitorSmartphone, Laptop, ServerOff } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface Question {
@@ -22,10 +22,10 @@ interface Module {
   title: string;
   description: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
-  questions: Question[];
   completed: boolean;
   icon: React.ElementType;
   estimatedTime: string;
+  questions: Question[];
 }
 
 const LearningPage = () => {
@@ -94,7 +94,7 @@ const LearningPage = () => {
         },
         {
           id: 5,
-          text: "What is a firewall?",
+8          text: "What is a firewall?",
           options: [
             "A physical barrier that prevents computer theft",
             "A system designed to prevent unauthorized access to or from a private network",
@@ -503,7 +503,6 @@ const LearningPage = () => {
 
     const scorePercentage = (correctAnswers / currentModule.questions.length) * 100;
     
-    // Mark module as completed if score is 70% or higher
     if (scorePercentage >= 70) {
       const updatedModules = modules.map(module => 
         module.id === activeModule ? { ...module, completed: true } : module
@@ -529,7 +528,6 @@ const LearningPage = () => {
     });
   };
 
-  // Display the current module's quiz
   const renderQuiz = () => {
     const currentModule = modules.find(m => m.id === activeModule);
     if (!currentModule) return null;
@@ -590,7 +588,6 @@ const LearningPage = () => {
     );
   };
 
-  // Display quiz results
   const renderResults = () => {
     const currentModule = modules.find(m => m.id === activeModule);
     if (!currentModule) return null;

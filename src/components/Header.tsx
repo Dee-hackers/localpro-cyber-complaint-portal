@@ -56,9 +56,8 @@ const Header = () => {
           to="/" 
           className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-80"
         >
-          <div className="relative">
-            <Shield className="h-8 w-8 text-primary" />
-            <Lock className="h-4 w-4 text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+          <div className="bg-primary rounded-full p-2">
+            <Shield className="h-6 w-6 text-white" />
           </div>
           <span className="font-semibold text-xl">
             <span className="text-2xl font-bold mr-1">H</span>
