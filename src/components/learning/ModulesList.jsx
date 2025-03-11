@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+import { Progress } from '../ui/progress';
 import ModuleCard from './ModuleCard';
 
 const ModulesList = ({ modules, onStartModule, onViewCertificate, progress }) => {
