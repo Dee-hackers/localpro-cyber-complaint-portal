@@ -27,8 +27,7 @@ const App = () => (
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/learning" element={<LearningPage />} />
           <Route path="/certificate" element={<CertificatePage />} />
-          <Route path="/track" element={<TrackComplaintPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/track-complaint" element={<TrackComplaintPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

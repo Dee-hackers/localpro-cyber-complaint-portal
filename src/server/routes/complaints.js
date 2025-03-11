@@ -29,6 +29,11 @@ router.get('/:referenceNumber', async (req, res) => {
 // Create a new complaint
 router.post('/', async (req, res) => {
   try {
+    // Validate complaint type
+    if (!['women-children', 'online-fraud', 'cyber-crime'].includes(req.body.type)) {
+      return res.status(400).json({ message: 'Invalid complaint type' });
+    }
+    
     const referenceNumber = `CYB-${Date.now().toString().slice(-8)}-${Math.floor(Math.random() * 1000)}`;
     
     const complaint = new Complaint({
