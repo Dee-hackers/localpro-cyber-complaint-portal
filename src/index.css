@@ -116,7 +116,7 @@
   }
 
   .prose-custom {
-    @apply prose prose-slate dark:prose-invert prose-headings:font-medium prose-a:text-primary;
+    @apply text-foreground font-medium;
   }
 }
 

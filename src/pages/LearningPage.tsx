@@ -94,7 +94,7 @@ const LearningPage = () => {
         },
         {
           id: 5,
-8          text: "What is a firewall?",
+          text: "What is a firewall?",
           options: [
             "A physical barrier that prevents computer theft",
             "A system designed to prevent unauthorized access to or from a private network",
