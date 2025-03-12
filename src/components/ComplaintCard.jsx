@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { ArrowRight, LucideIcon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const ComplaintCard = ({
   title,

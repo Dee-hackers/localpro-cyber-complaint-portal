@@ -1,3 +1,4 @@
+
 import React, { useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,12 +7,12 @@ import { Card } from '@/components/ui/card';
 import html2canvas from 'html2canvas';
 import { motion } from 'framer-motion';
 import Header from '@/components/Header';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 const CertificatePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const certificateRef = useRef<HTMLDivElement>(null);
+  const certificateRef = useRef(null);
   const { toast } = useToast();
   const [isDownloading, setIsDownloading] = useState(false);
   
@@ -135,7 +136,7 @@ const CertificatePage = () => {
                 <div className="mb-8">
                   <h3 className="text-lg font-semibold mb-2 text-gray-800">Modules Completed</h3>
                   <ul className="list-none text-gray-600 space-y-1">
-                    {modules.map((module: string, index: number) => (
+                    {modules.map((module, index) => (
                       <li key={index} className="flex items-center justify-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-500" />
                         {module}

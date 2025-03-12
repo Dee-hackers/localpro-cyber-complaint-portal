@@ -11,19 +11,11 @@ import {
 import { Button } from '@/components/ui/button';
 import ComplaintForm from '@/components/ComplaintForm';
 
-type ComplaintType = 'women-children' | 'online-fraud' | 'cyber-crime';
-
-interface ComplaintTypeInfo {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-}
-
 const ComplaintPage = () => {
-  const { type } = useParams<{ type: string }>();
+  const { type } = useParams();
   const navigate = useNavigate();
   
-  const complaintTypes: Record<ComplaintType, ComplaintTypeInfo> = {
+  const complaintTypes = {
     'women-children': {
       title: 'Women & Children Safety',
       description: 'Report harassment, abuse, or other violations against women and children.',
@@ -48,11 +40,11 @@ const ComplaintPage = () => {
     }
   }, [type, navigate]);
   
-  if (!type || !complaintTypes[type as ComplaintType]) {
+  if (!type || !complaintTypes[type]) {
     return null;
   }
   
-  const complaintInfo = complaintTypes[type as ComplaintType];
+  const complaintInfo = complaintTypes[type];
   
   return (
     <div className="min-h-screen pt-24 pb-16 px-4 md:px-8">
@@ -88,7 +80,7 @@ const ComplaintPage = () => {
           </p>
         </div>
         
-        <ComplaintForm type={type as ComplaintType} />
+        <ComplaintForm type={type} />
       </div>
     </div>
   );

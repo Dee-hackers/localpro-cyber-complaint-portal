@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Shield, Menu, X, Info, Lock, Bell, HelpCircle, BookOpen, User, Search, GraduationCap } from 'lucide-react';
+import { Shield, Menu, X, Info, Lock, Bell, HelpCircle, BookOpen, User, GraduationCap } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
