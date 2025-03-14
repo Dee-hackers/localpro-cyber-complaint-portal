@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Shield, Menu, X, GraduationCap } from 'lucide-react';
+import { Shield, Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -70,15 +70,6 @@ const Header = () => {
               {item.name}
             </Link>
           ))}
-          
-          {/* Join Button */}
-          <Link 
-            to="/learning" 
-            className="bg-primary text-white px-4 py-2 rounded-md font-medium transition-all duration-300 hover:bg-primary/90 hover:shadow-md hover:scale-105 transform"
-          >
-            <GraduationCap className="h-4 w-4 inline mr-1" />
-            Join Learning
-          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -113,14 +104,6 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
-            
-            {/* Mobile Join Button */}
-            <Link 
-              to="/learning" 
-              className="bg-primary text-white px-6 py-2 rounded-md font-medium"
-            >
-              Join Learning
-            </Link>
           </nav>
         </div>
       )}
