@@ -86,9 +86,9 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation - Fixed position with higher z-index */}
+      {/* Mobile Navigation - Fixed position with solid background */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-[72px] bg-background/95 backdrop-blur-md z-40">
+        <div className="md:hidden fixed inset-x-0 top-[72px] bg-white dark:bg-card shadow-md z-40">
           <nav className="flex flex-col items-center justify-center py-6 space-y-6 p-4">
             {navItems.map((item) => (
               <Link
