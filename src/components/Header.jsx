@@ -50,8 +50,7 @@ const Header = () => {
             <Shield className="h-6 w-6 text-white" />
           </div>
           <span className="font-semibold text-xl">
-            <span className="text-2xl font-bold mr-1">H</span>
-            ackAlert
+            HackAlert
           </span>
         </Link>
 
@@ -96,38 +95,35 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
-      <div
-        className={cn(
-          'md:hidden fixed inset-0 top-[72px] bg-background/95 backdrop-blur-md z-40 transition-transform duration-300 ease-in-out',
-          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        )}
-      >
-        <nav className="flex flex-col items-center justify-center h-full space-y-6 p-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={cn(
-                'text-lg font-medium transition-colors duration-200',
-                location.pathname === item.path
-                  ? 'text-primary'
-                  : 'text-foreground/80 hover:text-primary'
-              )}
+      {/* Mobile Navigation - Fixed position with higher z-index */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden fixed inset-x-0 top-[72px] bg-background/95 backdrop-blur-md z-40">
+          <nav className="flex flex-col items-center justify-center py-6 space-y-6 p-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={cn(
+                  'text-lg font-medium transition-colors duration-200',
+                  location.pathname === item.path
+                    ? 'text-primary'
+                    : 'text-foreground/80 hover:text-primary'
+                )}
+              >
+                {item.name}
+              </Link>
+            ))}
+            
+            {/* Mobile Join Button */}
+            <Link 
+              to="/learning" 
+              className="bg-primary text-white px-6 py-2 rounded-md font-medium"
             >
-              {item.name}
+              Join Learning
             </Link>
-          ))}
-          
-          {/* Mobile Join Button */}
-          <Link 
-            to="/learning" 
-            className="bg-primary text-white px-6 py-2 rounded-md font-medium"
-          >
-            Join Learning
-          </Link>
-        </nav>
-      </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
